@@ -1,0 +1,3115 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+/* =========================================================
+   RESET & BASE
+========================================================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* =========================================================
+   CONTAINER PRINCIPAL
+========================================================= */
+.container {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+
+/* =========================================================
+   GRID PRINCIPAL
+========================================================= */
+.rug-view-layout {
+  height: 100%;
+}
+
+.main-grid {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 0.7fr 2.3fr 1fr;
+  gap: 10px;
+  overflow: hidden;
+}
+
+/* =========================================================
+   COLUNAS
+========================================================= */
+.left-column,
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
+}
+
+/* =========================================================
+   PAINÉIS
+========================================================= */
+.panel {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  flex: 1;
+}
+
+.panel.scroll {
+  overflow-y: auto;
+}
+
+.rug-panel {
+  overflow: hidden;
+}
+
+/* =========================================================
+   PLACEHOLDER
+========================================================= */
+.panel-placeholder {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+  font-size: 14px;
+}
+
+/* =========================================================
+   BEHAVIOR RUG
+========================================================= */
+.behavior-rug-wrap {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.behavior-rug-left {
+  background: #fff;
+  z-index: 2;
+}
+
+.behavior-rug-center {
+  position: relative;
+}
+
+.behavior-rug-right {
+  position: absolute;
+  right: 20px;
+  top: 50px;
+  width: 170px;
+  height: 230px;
+  max-height: 80%;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  display: none;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  pointer-events: auto;
+}
+
+.frequency-legend-floating {
+  position: absolute;
+  right: 10px;
+  top: 40px;
+  width: 140px;
+  height: auto;
+  max-height: 80%;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  display: none;
+  pointer-events: auto;
+}
+
+/* =========================================================
+   CONTROLES DO RUG
+========================================================= */
+
+
+.rug-controls {
+
+  background: #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 3px 10px 3px 10px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: "0";
+  font-size: 12px;
+}
+
+.rug-controls .section-label {
+  font-weight: 700;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.rug-controls .divider {
+  width: 1px;
+  height: 20px;
+  background: #ccc;
+  margin: 0 8px;
+}
+
+.rug-select {
+  height: 28px;
+  padding: 4px 8px;
+  font-size: 11px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+}
+
+.rug-controls select,
+.rug-controls button {
+  font-size: 11px;
+  padding: 10px 10px;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.rug-controls select:hover,
+.rug-controls button:hover {
+  background: #f5f5f5;
+}
+
+.sort-direction-btn {
+  background: transparent;
+  border: none;
+  margin-left: 0px;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+
+/* Grupo de rádio (smoothing) */
+.rug-radio-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.rug-radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+/* Checkbox da legenda */
+.rug-legend-toggle {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+}
+
+
+#tsne-panel {
+  min-height: 200px;
+}
+
+/* Video: maior */
+#video-panel {
+  flex: 1.5;
+  min-height: 0;
+}
+
+/* Trajectory: mantém a proporção */
+#trajectory-panel {
+  flex: 1.2;
+  min-height: 0;
+}
+
+/* State Frequency: menor */
+#frequency-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+#frequency-panel>div {
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  padding: 4px 8px;
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   DROPDOWN
+========================================================= */
+.dropdown {
+  position: relative;
+
+}
+
+.dropdown-toggle {
+  background: transparent;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.motif-custom-settings input[type="text"] {
+  padding: 2px 5px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  max-height: 95vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.dropdown-content.show {
+  display: block;
+}
+
+.dropdown-content label {
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.dropdown-content label:hover {
+  background: #f1f1f1;
+}
+
+/* =========================================================
+   SELEÇÃO & HOVER
+========================================================= */
+.row-hover rect {
+  fill: rgb(251, 251, 162);
+  stroke: #c3c606;
+}
+
+.row-selected rect {
+  fill: rgb(166, 167, 166);
+  stroke: #5d5d5d;
+}
+
+.l-row.selected text {
+  font-weight: 700;
+}
+
+.l-row.hovered rect {
+  fill: rgba(42, 143, 244, 0.2);
+}
+
+/* =========================================================
+   TOOLTIP
+========================================================= */
+.tooltip {
+  position: absolute;
+  padding: 6px;
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.85);
+  color: #333;
+  border-radius: 4px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 2000;
+}
+
+/* =========================================================
+   TRAJECTORY VIEW
+========================================================= */
+/* Custom Motif Buttons */
+.motif-builder {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  min-width: 350px;
+}
+
+.motif-step {
+  border: 1px solid #eee;
+  padding: 8px;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.motif-step-title {
+  font-size: 11px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.motif-button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 5px;
+}
+
+.motif-btn {
+  font-size: 10px;
+  padding: 2px 6px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+
+  cursor: pointer;
+}
+
+.motif-btn:hover {
+  background: #7e9ab2;
+}
+
+.motif-btn.active {
+  background: #164773;
+  color: #faf6f6;
+  border-color: #164773;
+}
+
+.motif-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.motif-clear-btn {
+  font-size: 9px;
+  cursor: pointer;
+  color: #a11b03;
+  text-decoration: underline;
+}
+
+.motif-apply-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+  border-top: 1px solid #eee;
+  padding-top: 8px;
+}
+
+.chart-title {
+  text-align: center;
+  font-size: 11px;
+  color: #666;
+}
+
+#rug-panel .context-builder-dropdown {
+  margin-left: 12px;
+}
+
+/* ===== BehaviourRug direction legend ===== */
+
+#rug-panel .legend-compass {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  margin-left: 8px;
+}
+
+#rug-panel .legend-dir-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 3px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* barrinha separando cada direção */
+#rug-panel .legend-dir-item:not(:last-child) {
+  border-right: 1px solid #d4d8dd;
+}
+
+/* triângulos */
+#rug-panel .legend-dir-item svg {
+  display: block;
+  width: 12px;
+  height: 12px;
+  min-width: 12px;
+  flex: 0 0 12px;
+}
+
+/* deixa o triângulo em cinza */
+#rug-panel .legend-dir-item path {
+  fill: #8f98a3;
+  stroke: #7e8894;
+  stroke-width: 0.8;
+}
+
+/* letras N E S W */
+#rug-panel .legend-dir-label {
+  display: inline-block;
+  font-size: 10px;
+  color: #4f5965;
+  margin: 0;
+}
+
+/* título "Direction" */
+#rug-panel .rug-legend-group strong {
+  color: #2f3b4a;
+  font-size: 10px;
+  margin-right: 4px;
+}
+
+/* =========================================================
+   VIDEO PANEL & CONTROLS
+========================================================= */
+
+/* O container preto que engloba tudo */
+.video-player-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+}
+
+/* Área onde o vídeo e o canvas ficam */
+.video-view-area {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #555;
+  overflow: hidden;
+}
+
+/* Elemento Video e Canvas */
+.video-element {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.canvas-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Legenda flutuante */
+.video-legend-overlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 11px;
+  color: white;
+  pointer-events: none;
+}
+
+/* Barra de controles inferior */
+.video-controls {
+  width: 100%;
+  padding: 3px 10px 3px 10px;
+  background: #ccc;
+  border-top: 1px solid #ccc;
+  display: none;
+  /* Oculto por padrão */
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  flex-shrink: 0;
+}
+
+.video-controls.active {
+  display: flex;
+}
+
+.video-btn {
+  background: #fff;
+  width: 80px;
+  color: #000;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  padding: 3px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.2s;
+}
+
+.video-btn:hover {
+  background: #eee;
+}
+
+/* Barra de progresso */
+.video-progress-track {
+  flex: 1;
+  height: 6px;
+  background: #333;
+  border-radius: 3px;
+  position: relative;
+  max-width: 400px;
+  cursor: pointer;
+  /* Preparado para clique futuro */
+}
+
+.video-progress-fill {
+  width: 0%;
+  height: 100%;
+  background: #646ec7;
+  border-radius: 3px;
+  transition: width 0.1s linear;
+}
+
+/* =========================================================
+   FRAME SELECTION
+========================================================= */
+rect.frame-selected-start {
+  stroke: #9408d0 !important;
+  stroke-width: 3px !important;
+  fill: #d2b4de !important;
+}
+
+rect.frame-selected-interval {
+  stroke: #8e44ad !important;
+  stroke-width: 2px !important;
+  stroke-opacity: 0.8;
+  fill: #d2b4de !important;
+}
+
+/* =========================================================
+   COLLISION SEGMENT MARKERS  (contextPanel.js)
+   Aplicados directamente no rect existente de cada .g-cell,
+   exactamente como frame-selected-interval — sem elementos extra.
+========================================================= */
+rect.seg-collision-debris {
+  stroke: #c0392b !important;
+  /* vermelho — debris/cluster */
+  stroke-width: 2px !important;
+  stroke-dasharray: 4, 2 !important;
+  stroke-opacity: 0.9;
+  fill: rgba(192, 57, 43, 0.15) !important;
+}
+
+rect.seg-collision-pinhead {
+  stroke: #8e44ad !important;
+  /* roxo — pinhead */
+  stroke-width: 2px !important;
+  stroke-dasharray: 2, 2 !important;
+  stroke-opacity: 0.9;
+  fill: rgba(142, 68, 173, 0.15) !important;
+}
+
+/* Quando os dois coincidem, debris tem prioridade (último aplicado ganha) */
+rect.seg-collision-debris.seg-collision-pinhead {
+  stroke: #c0392b !important;
+  stroke-dasharray: 4, 2 !important;
+  fill: rgba(192, 57, 43, 0.15) !important;
+}
+
+#confusion-matrix-panel {
+  min-height: 220px;
+  flex: 0 0 220px;
+  /* Prevent it from shrinking too much or growing unnecessarily */
+}
+
+
+/* Motif Builder — CSS isolado; adicionar ao final do styles.css */
+.motif-builder-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex: 0 0 auto
+}
+
+.motif-builder-dropdown .mb-panel {
+  display: none !important;
+  position: absolute;
+  left: 0;
+  top: calc(100% + 7px);
+  z-index: 2500;
+  width: min(440px, calc(100vw - 24px));
+  max-height: min(78vh, 700px);
+  overflow: auto;
+  flex-direction: column;
+  background: #fff;
+  color: #263445;
+  border: 1px solid #d4dbe3;
+  border-radius: 9px;
+  box-shadow: 0 12px 35px rgba(23, 39, 56, .22);
+  padding: 0;
+  transform: none
+}
+
+.motif-builder-dropdown .mb-panel.show {
+  display: flex !important
+}
+
+.mb-toolbar-label {
+  font-size: 12px;
+  font-weight: 700
+}
+
+.mb-panel .mb-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 14px 16px;
+  background: #f6f8fb;
+  border-bottom: 1px solid #e3e8ee
+}
+
+.mb-header strong {
+  display: block;
+  font-size: 14px
+}
+
+.mb-header small {
+  display: block;
+  color: #627083;
+  font-size: 11px;
+  margin-top: 3px
+}
+
+.mb-panel .mb-close {
+  font-size: 22px;
+  line-height: 1;
+  border: 0;
+  background: transparent;
+  padding: 0 3px;
+  color: #57677b;
+  cursor: pointer
+}
+
+.mb-panel .mb-section {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e7ebef;
+  position: relative
+}
+
+.mb-section-title {
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 10px
+}
+
+.mb-subtitle {
+  font-size: 11px;
+  color: #4a5b70;
+  margin: 10px 0 6px
+}
+
+.mb-speed-options {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 5px
+}
+
+.mb-speed-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 51px;
+  padding: 6px 3px !important;
+  font-size: 9px !important;
+  border: 1px solid #d6dce3;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer
+}
+
+.mb-speed-option span:last-child {
+  text-align: center;
+  overflow-wrap: anywhere
+}
+
+.mb-color-dot {
+  display: block;
+  width: 35px;
+  height: 35px;
+  border-radius: 20%;
+  border: 1px solid rgba(0, 0, 0, .15)
+}
+
+.mb-direction-options {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px
+}
+
+.mb-direction-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-height: 51px;
+  padding: 5px !important;
+  font-size: 10px !important;
+  border: 1px solid #d6dce3;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer
+}
+
+.mb-panel .is-selected, .mb-panel .is-editing {
+  border-color: #215c87 !important;
+  box-shadow: inset 0 0 0 1px #215c87;
+  background: #eaf3fa !important
+}
+
+.mb-panel button:focus-visible {
+  outline: 2px solid #1c6baf;
+  outline-offset: 2px
+}
+
+.mb-actions-row {
+  display: flex;
+  gap: 7px;
+  margin-top: 12px;
+  align-items: center;
+  flex-wrap: wrap
+}
+
+.mb-panel .mb-btn {
+  border: 1px solid #c8d3dd;
+  border-radius: 5px;
+  padding: 8px 12px !important;
+  background: #fff;
+  font-size: 11px !important;
+  font-weight: 600;
+  cursor: pointer
+}
+
+.mb-panel .mb-btn:disabled {
+  opacity: .4;
+  cursor: not-allowed
+}
+
+.mb-panel .mb-btn--primary {
+  background: #315d7f;
+  color: white;
+  border-color: #315d7f
+}
+
+.mb-panel .mb-btn--search {
+  background: #215c87;
+  color: white;
+  border-color: #215c87;
+  flex: 1
+}
+
+.mb-panel .mb-btn--quiet {
+  background: transparent;
+  color: #526174
+}
+
+.mb-panel .mb-full {
+  width: 100%;
+  margin-top: 10px
+}
+
+.mb-counter {
+  position: absolute;
+  top: 13px;
+  right: 16px;
+  font-size: 10px;
+  color: #657488
+}
+
+.mb-step-strip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+  max-width: 100%;
+  padding: 4px 0 7px
+}
+
+.mb-step-tile {
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+  border: 1px solid #d8e0e7;
+  border-radius: 6px;
+  background: #fafbfc
+}
+
+.mb-panel .mb-step-select {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 65px;
+  min-height: 63px;
+  padding: 5px !important;
+  border: 0;
+  background: transparent;
+  cursor: pointer
+}
+
+.mb-step-select small {
+  font-size: 9px;
+  color: #667586
+}
+
+.mb-panel .mb-step-remove {
+  position: absolute;
+  top: 0;
+  right: 1px;
+  background: transparent;
+  border: 0;
+  color: #a34242;
+  font-size: 15px;
+  padding: 0 2px !important;
+  cursor: pointer
+}
+
+.mb-sequence-arrow {
+  flex: 0 0 auto;
+  font-size: 15px;
+  color: #93a1b3
+}
+
+.mb-meta-row {
+  display: flex;
+  gap: 12px;
+  align-items: end;
+  margin-top: 10px
+}
+
+.mb-meta-row label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0;
+  font-size: 10px;
+  color: #516176
+}
+
+.mb-meta-row input[type=text] {
+  height: 28px;
+  width: 180px;
+  padding: 4px 6px;
+  border: 1px solid #cdd6e0;
+  border-radius: 4px
+}
+
+.mb-meta-row input[type=color] {
+  height: 28px;
+  width: 48px;
+  padding: 1px;
+  border: 1px solid #cdd6e0;
+  border-radius: 4px
+}
+
+.mb-hint, .mb-empty {
+  font-size: 10px;
+  color: #657488;
+  line-height: 1.4;
+  margin: 7px 0
+}
+
+.mb-active-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px;
+  border: 1px solid #e2e7ed;
+  border-radius: 6px;
+  background: #fafbfc;
+  margin-bottom: 6px
+}
+
+.mb-color-swatch {
+  width: 10px;
+  height: 25px;
+  border-radius: 2px;
+  flex: 0 0 auto
+}
+
+.mb-active-info {
+  flex: 1;
+  min-width: 0
+}
+
+.mb-active-info strong {
+  display: block;
+  font-size: 11px;
+  overflow-wrap: anywhere
+}
+
+.mb-mini-pattern {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  max-width: 100%;
+  overflow-x: auto;
+  margin-top: 3px
+}
+
+.mb-panel .mb-remove-motif {
+  border: 0;
+  background: transparent;
+  color: #a34242;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 2px 7px !important
+}
+
+.mb-pending-status {
+  font-size: 11px;
+  color: #965a15;
+  background: #fff7e9;
+  padding: 7px;
+  border-radius: 4px
+}
+
+@media(max-width:560px) {
+  .motif-builder-dropdown .mb-panel {
+    left: auto;
+    right: -8px;
+    width: min(400px, calc(100vw - 16px))
+  }
+
+  .mb-speed-option {
+    font-size: 8px !important
+  }
+}
+
+
+/* === Motif Builder: compact interface (override) === */
+.motif-builder-dropdown .mb-panel {
+  width: min(338px, calc(100vw - 18px));
+  max-height: min(72vh, 560px);
+  border-radius: 7px;
+}
+
+.motif-builder-dropdown .mb-panel .mb-header {
+  padding: 7px 10px;
+  align-items: center;
+}
+
+.mb-panel .mb-header strong {
+  font-size: 12px;
+}
+
+.mb-panel .mb-header small {
+  font-size: 9px;
+  margin-top: 1px;
+}
+
+.mb-panel .mb-close {
+  font-size: 17px;
+  padding: 0 2px !important;
+}
+
+.motif-builder-dropdown .mb-panel .mb-section {
+  padding: 7px 10px;
+}
+
+.mb-panel .mb-section-title {
+  font-size: 10px;
+  margin-bottom: 5px;
+}
+
+.mb-panel .mb-subtitle {
+  font-size: 10px;
+  margin: 6px 0 3px;
+}
+
+.mb-panel .mb-speed-options {
+  gap: 3px;
+}
+
+.mb-panel .mb-speed-option {
+  min-height: 34px;
+  padding: 3px 2px !important;
+  font-size: 8px !important;
+  gap: 2px;
+  border-radius: 4px;
+}
+
+.mb-panel .mb-color-dot {
+  width: 9px;
+  height: 9px;
+}
+
+.mb-panel .mb-direction-options {
+  gap: 4px;
+}
+
+.mb-panel .mb-direction-option {
+  min-height: 34px;
+  padding: 2px !important;
+  font-size: 9px !important;
+  gap: 0;
+  border-radius: 4px;
+}
+
+.mb-panel .mb-actions-row {
+  gap: 5px;
+  margin-top: 6px;
+}
+
+.mb-panel .mb-btn {
+  padding: 5px 8px !important;
+  font-size: 10px !important;
+  border-radius: 4px;
+}
+
+.mb-panel .mb-full {
+  margin-top: 6px;
+}
+
+.mb-panel .mb-counter {
+  top: 8px;
+  right: 10px;
+  font-size: 9px;
+}
+
+.mb-panel .mb-step-strip {
+  gap: 2px;
+  padding: 2px 0 3px;
+}
+
+.mb-panel .mb-step-tile {
+  border-radius: 4px;
+}
+
+.mb-panel .mb-step-select {
+  width: 43px;
+  min-height: 42px;
+  padding: 3px !important;
+  gap: 0;
+}
+
+.mb-panel .mb-step-select small {
+  font-size: 8px;
+}
+
+.mb-panel .mb-step-remove {
+  font-size: 12px;
+  top: -1px;
+  right: 0;
+  padding: 0 1px !important;
+}
+
+.mb-panel .mb-sequence-arrow {
+  font-size: 12px;
+}
+
+.mb-panel .mb-meta-row {
+  gap: 9px;
+  margin-top: 6px;
+}
+
+.mb-panel .mb-meta-row label {
+  gap: 2px;
+  font-size: 9px;
+}
+
+.mb-panel .mb-meta-row input[type=text] {
+  width: 136px;
+  height: 24px;
+  padding: 2px 5px;
+  font-size: 11px;
+}
+
+.mb-panel .mb-meta-row input[type=color] {
+  width: 36px;
+  height: 24px;
+}
+
+.mb-panel .mb-hint, .mb-panel .mb-empty {
+  font-size: 9px;
+  margin: 4px 0;
+  line-height: 1.3;
+}
+
+.mb-panel .mb-active-row {
+  gap: 5px;
+  padding: 4px 5px;
+  margin-bottom: 4px;
+  border-radius: 4px;
+}
+
+.mb-panel .mb-color-swatch {
+  width: 7px;
+  height: 19px;
+}
+
+.mb-panel .mb-active-info strong {
+  font-size: 10px;
+}
+
+.mb-panel .mb-mini-pattern {
+  margin-top: 1px;
+}
+
+.mb-panel .mb-remove-motif {
+  font-size: 15px;
+  padding: 1px 4px !important;
+}
+
+.mb-panel .mb-pending-status {
+  font-size: 9px;
+  padding: 5px;
+}
+
+@media(max-width:560px) {
+  .motif-builder-dropdown .mb-panel {
+    width: min(320px, calc(100vw - 16px));
+  }
+}
+
+/* Motif Builder — hierarquia de leitura: identificação → sequência → configuração → confirmação → busca */
+.mb-panel .mb-section-meta .mb-meta-row {
+  margin-top: 2px;
+}
+
+.mb-panel .mb-section-pattern .mb-step-strip {
+  margin-top: 3px;
+}
+
+.mb-panel .mb-section-edit .mb-actions-row {
+  justify-content: flex-end;
+}
+
+.mb-panel .mb-section-commit .mb-full {
+  margin-top: 3px;
+}
+
+.mb-panel .mb-section-commit .mb-hint {
+  margin: 1px 0 3px;
+}
+
+.mb-panel .mb-section-list {
+  border-bottom: none;
+}
+
+/* Identificação em linha única; cabeçalho removido para ganhar altura. */
+.motif-builder-dropdown .mb-panel {
+  position: absolute;
+}
+
+.mb-panel .mb-section-meta {
+  padding-right: 33px !important;
+}
+
+.mb-panel .mb-section-meta .mb-meta-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 7px;
+  margin-top: 0;
+  min-width: 0;
+}
+
+.mb-panel .mb-section-meta .mb-meta-row label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  padding: 0;
+  min-width: 0;
+}
+
+.mb-panel .mb-section-meta .mb-meta-row label:first-child {
+  flex: 1 1 auto;
+}
+
+.mb-panel .mb-section-meta .mb-meta-row input[type=text] {
+  width: 100%;
+  min-width: 48px;
+  height: 23px;
+  flex: 1 1 auto;
+}
+
+.mb-panel .mb-section-meta .mb-meta-row input[type=color] {
+  width: 27px;
+  min-width: 27px;
+  height: 23px;
+  flex: 0 0 27px;
+}
+
+.mb-panel>.mb-close {
+  position: absolute;
+  top: 6px;
+  right: 7px;
+  z-index: 2;
+  background: transparent;
+  border: 0;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  color: #57677b;
+  padding: 2px !important;
+}
+
+/* Context Builder — compact, no forced visibility */
+.context-builder-dropdown {
+  position: relative;
+}
+
+.context-builder-dropdown .cb-panel {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 260px;
+  max-width: min(90vw, 260px);
+  max-height: 70vh;
+  overflow: auto;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  z-index: 1100;
+  box-shadow: 0 5px 15px #0002;
+  font-size: 11px;
+}
+
+.context-builder-dropdown .cb-panel.show {
+  display: block;
+}
+
+.cb-close {
+  float: right;
+  border: 0;
+  background: transparent;
+  font-size: 16px;
+  padding: 0 3px;
+  cursor: pointer;
+}
+
+.cb-title {
+  font-weight: 700;
+  margin-bottom: 9px;
+}
+
+.cb-types {
+  display: flex;
+  gap: 12px;
+  margin: 5px 0 9px;
+}
+
+.cb-types label {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.cb-distance {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 !important;
+}
+
+.cb-distance input {
+  width: 105px;
+  min-width: 0;
+  padding: 4px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+}
+
+.cb-status {
+  margin: 9px 0;
+  color: #555;
+  font-size: 10px;
+}
+
+.cb-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.cb-actions button {
+  font-size: 11px;
+  padding: 5px 7px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cb-search {
+  background: #164773 !important;
+  color: white !important;
+  border: 1px solid #164773;
+}
+
+.cb-clear {
+  background: white;
+  border: 1px solid #bbb;
+}
+
+/* Use outlines to coexist with motif fill and speed/direction glyphs. */
+.g-cell.cb-match-debris>rect {
+  stroke: #c0392b !important;
+  stroke-width: 2.4px !important;
+  stroke-dasharray: 3 2;
+}
+
+.g-cell.cb-match-pinhead>rect {
+  stroke: #8e44ad !important;
+  stroke-width: 2.4px !important;
+}
+
+.g-cell.cb-match-debris.cb-match-pinhead>rect {
+  stroke: #c0392b !important;
+  stroke-dasharray: 3 2 !important;
+}
+
+/* Context Builder: compacto, lista de contextos e cores individuais */
+.context-builder-dropdown .cb-panel {
+  width: min(310px, calc(100vw - 20px));
+  padding: 9px;
+}
+
+.cb-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-right: 18px;
+  margin-bottom: 9px;
+}
+
+.cb-meta label {
+  display: flex !important;
+  align-items: center;
+  gap: 4px;
+  padding: 0 !important;
+  min-width: 0;
+  font-size: 11px;
+}
+
+.cb-meta label:first-child {
+  flex: 1;
+}
+
+.cb-name {
+  width: 100%;
+  min-width: 45px;
+  height: 25px;
+  padding: 3px 5px;
+  border: 1px solid #bfc7cf;
+  border-radius: 4px;
+}
+
+.cb-color {
+  width: 26px;
+  height: 25px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.cb-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  margin: 5px 0;
+}
+
+.cb-add {
+  display: block;
+  width: 100%;
+  border: 1px solid #b5c5d5;
+  background: #f3f7fa;
+  border-radius: 4px;
+  font-size: 11px;
+  padding: 5px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.cb-list {
+  max-height: 165px;
+  overflow: auto;
+  margin-top: 8px;
+}
+
+.cb-context-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 4px;
+  border: 1px solid #e2e6ec;
+  border-radius: 4px;
+  margin: 4px 0;
+  background: #fafbfc;
+}
+
+.cb-swatch {
+  width: 12px;
+  height: 12px;
+  flex: 0 0 12px;
+  border-radius: 2px;
+}
+
+.cb-context-info {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cb-context-info strong {
+  font-size: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cb-context-info small {
+  font-size: 10px;
+  color: #5c6776;
+}
+
+.cb-remove {
+  border: 0;
+  background: transparent;
+  color: #a52e25;
+  font-size: 17px;
+  cursor: pointer;
+  padding: 1px 4px !important;
+}
+
+.cb-search:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+/* Dataset controls: a single header, without changing the existing panels. */
+#dataset-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 9px 12px;
+  margin-bottom: 8px;
+  background: #f3f5f8;
+  border: 1px solid #d7dce4;
+  border-radius: 5px;
+  font: 12px Arial, sans-serif;
+  color: #253447;
+}
+
+#dataset-controls label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#dataset-controls input[type=number] {
+  width: 58px;
+  padding: 5px;
+  border: 1px solid #bbc5d1;
+  border-radius: 3px;
+}
+
+#dataset-controls input[type=file] {
+  max-width: 220px;
+  font-size: 11px;
+}
+
+#dataset-controls button {
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 4px;
+  background: #164773;
+  color: white;
+  cursor: pointer;
+}
+
+#dataset-controls button:disabled {
+  opacity: .55;
+  cursor: wait;
+}
+
+#dataset-status {
+  color: #435467;
+  max-width: 430px;
+  overflow-wrap: anywhere;
+}
+
+/* =========================================================
+   CABEÇALHO COMPACTO + QUATRO COLUNAS FLEXÍVEIS
+   ========================================================= */
+html, body {
+  height: 100%;
+}
+
+.container.rug-view-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  padding: 6px;
+  gap: 5px;
+}
+
+#dataset-controls {
+  flex: 0 0 auto;
+  min-height: 36px;
+  margin: 0;
+  padding: 3px 8px;
+  gap: 7px;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+#dataset-controls .app-brand {
+  font-size: 15px;
+  color: #164773;
+  white-space: nowrap;
+  margin-right: 5px;
+}
+
+#dataset-controls .dataset-name {
+  font-size: 10px;
+  color: #586b80;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 170px;
+}
+
+#dataset-controls label {
+  white-space: nowrap;
+  font-size: 11px;
+}
+
+#dataset-controls input[type=number] {
+  width: 52px;
+  min-width: 42px;
+  padding: 3px 4px;
+}
+
+#dataset-controls button {
+  flex-shrink: 0;
+  padding: 5px 9px;
+}
+
+#dataset-status {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 10px;
+  color: #516277;
+}
+
+.main-grid {
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 0;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr) minmax(0, .6fr) minmax(0, 2.4fr) minmax(0, 1fr);
+  gap: 6px;
+}
+
+.left-column, .right-column {
+  min-height: 0;
+  min-width: 0;
+  gap: 5px;
+}
+
+.panel-slot {
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 7px;
+}
+
+.main-grid>.panel-slot {
+  flex: initial;
+  height: 100%;
+}
+
+.panel-slot>.panel {
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 auto !important;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+#tsne-panel {
+  min-height: 0;
+}
+
+.panel-slot-toolbar {
+  flex: 0 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 3px 1px 7px;
+  background: #e7edf4;
+  border: 1px solid #d3dde8;
+  border-bottom: 0;
+  font: 600 10px Roboto, Arial, sans-serif;
+  color: #23415f;
+  min-width: 0;
+}
+
+.panel-slot-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.panel-slot-actions {
+  display: inline-flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.panel-slot-actions button {
+  width: 21px;
+  height: 20px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #23415f;
+  font: 600 14px Arial, sans-serif;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.panel-slot-actions button:hover {
+  background: #cedbe9;
+}
+
+.panel-slot-actions button:focus-visible {
+  outline: 2px solid #135cab;
+}
+
+.panel-slot-actions button:disabled {
+  opacity: .35;
+  cursor: default;
+}
+
+.left-column>.panel-slot.is-collapsed,
+.right-column>.panel-slot.is-collapsed {
+  flex: 0 0 24px !important;
+}
+
+.panel-slot.is-collapsed>.panel {
+  display: none;
+}
+
+.main-grid>.panel-slot.is-collapsed {
+  width: 100%;
+}
+
+.main-grid>.panel-slot.is-collapsed>.panel-slot-toolbar {
+  writing-mode: vertical-rl;
+  height: 100%;
+  width: 100%;
+  flex-basis: auto;
+  padding: 6px 2px;
+  justify-content: flex-start;
+}
+
+.main-grid>.panel-slot.is-collapsed .panel-slot-title {
+  max-height: 80%;
+}
+
+.main-grid>.panel-slot.is-collapsed .panel-slot-actions {
+  flex-direction: column;
+}
+
+@media(max-width: 1100px) {
+  #dataset-controls {
+    gap: 4px;
+    padding: 2px 5px;
+  }
+
+  #dataset-controls .dataset-name {
+    max-width: 90px;
+  }
+
+  #dataset-controls .app-brand {
+    font-size: 13px;
+    margin-right: 0;
+  }
+
+  #dataset-controls label {
+    font-size: 10px;
+  }
+
+  .main-grid {
+    gap: 4px;
+  }
+
+  .panel-slot-toolbar {
+    padding-left: 3px;
+  }
+}
+
+.left-column.column-hidden, .right-column.column-hidden {
+  overflow: hidden;
+}
+
+.left-column.column-hidden>.panel-slot,
+.right-column.column-hidden>.panel-slot {
+  min-width: 0;
+}
+
+.left-column.column-hidden .panel-slot-title,
+.right-column.column-hidden .panel-slot-title {
+  display: none;
+}
+
+.left-column.column-hidden .panel-slot-toolbar,
+.right-column.column-hidden .panel-slot-toolbar {
+  justify-content: center;
+  padding: 1px;
+}
+
+.left-column.column-hidden .panel-slot-actions,
+.right-column.column-hidden .panel-slot-actions {
+  flex-direction: column;
+}
+
+/* ===== Cabeçalho integrado — evita duas barras no mesmo painel =====
+   Em vistas com controles próprios, os botões da moldura ficam sobrepostos
+   à extremidade direita da barra original, sem consumir altura adicional.
+   Em vistas sem controles superiores, a moldura continua sendo a única barra. */
+.panel-slot.has-native-header:not(.is-collapsed)>.panel-slot-toolbar {
+  position: absolute;
+  top: 3px;
+  right: 4px;
+  left: auto;
+  height: 24px;
+  width: auto;
+  min-width: 0;
+  padding: 0;
+  flex: none;
+  z-index: 20;
+  background: transparent;
+  border: 0;
+  border-radius: 4px;
+}
+
+.panel-slot.has-native-header:not(.is-collapsed)>.panel-slot-toolbar .panel-slot-title {
+  display: none;
+}
+
+.panel-slot.has-native-header:not(.is-collapsed)>.panel {
+  flex: 1 1 auto;
+  border-radius: 7px;
+}
+
+.panel-slot.has-native-header:not(.is-collapsed) .tsne-controls,
+.panel-slot.has-native-header:not(.is-collapsed) .rug-controls,
+.panel-slot.has-native-header:not(.is-collapsed) .trajectory-controls {
+  padding-right: 58px !important;
+  box-sizing: border-box;
+}
+
+.panel-slot.has-native-header:not(.is-collapsed)>.panel-slot-toolbar button {
+  background: rgba(255, 255, 255, .85);
+  border-color: rgba(0, 0, 0, .12);
+}
+
+.panel-slot.has-native-header:not(.is-collapsed)>.panel-slot-toolbar button:hover {
+  background: #e2ebf5;
+}
+
+/* Nas colunas laterais, recolher mantém um cabeçalho visível. */
+.panel-slot.is-collapsed>.panel-slot-toolbar {
+  position: relative;
+  top: auto;
+  right: auto;
+  left: auto;
+  width: auto;
+  flex: 0 0 24px;
+  background: #e7edf4;
+  border: 1px solid #d3dde8;
+  border-bottom: 0;
+  z-index: 20;
+}
+
+.panel-slot.is-collapsed>.panel-slot-toolbar .panel-slot-title {
+  display: inline;
+}
+
+/* As faixas verticais recolhidas continuam usando a regra específica acima. */
+.main-grid>.panel-slot.is-collapsed>.panel-slot-toolbar {
+  height: 100%;
+  width: 100%;
+  flex-basis: auto;
+}
+
+/* =====================================================================
+   CABEÇALHOS CLEAN (v3): ações na árvore do cabeçalho; nunca sobrepostas.
+   Mantém as quatro colunas e preserva controles originais dos gráficos.
+   ===================================================================== */
+.panel-slot {
+  background: #fff;
+  border: 1px solid #e1e7ee;
+  border-radius: 7px;
+}
+
+.panel-slot>.panel {
+  border: 0;
+  border-radius: 0 0 7px 7px;
+}
+
+.panel-slot-toolbar {
+  min-height: 32px;
+  flex: 0 0 32px;
+  padding: 0 7px 0 10px;
+  background: #f8fafc;
+  border: 0;
+  border-bottom: 1px solid #e8edf2;
+  color: #334155;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.panel-slot-actions {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 3px;
+  margin-left: auto;
+  padding: 0 3px 0 6px;
+  background: inherit;
+  z-index: 1;
+}
+
+.panel-slot-actions button {
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: transparent;
+  color: #54657a;
+  font-size: 15px;
+  line-height: 1;
+}
+
+.panel-slot-actions button:hover {
+  background: #e9eff5;
+  border-color: #d6e1eb;
+}
+
+.panel-slot-actions button:focus-visible {
+  outline: 2px solid #2476b7;
+  outline-offset: 1px;
+}
+
+/* A barra estrutural só aparece nos painéis sem toolbar própria. */
+.panel-slot.has-native-header:not(.is-collapsed)>.panel-slot-toolbar {
+  display: none !important;
+}
+
+.panel-slot.has-native-header:not(.is-collapsed)>.panel {
+  border-radius: 7px;
+}
+
+/* Native header sempre divide largura: conteúdo rolável + ações fixas. */
+.panel-slot.has-native-header:not(.is-collapsed) .tsne-controls,
+.panel-slot.has-native-header:not(.is-collapsed) .rug-controls,
+.panel-slot.has-native-header:not(.is-collapsed) .trajectory-controls {
+  position: relative;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  justify-content: flex-start !important;
+  gap: 0 !important;
+  width: 100%;
+  min-width: 0;
+  min-height: 34px;
+  height: 34px;
+  margin: 0 !important;
+  padding: 0 3px 0 6px !important;
+  border: 0 !important;
+  border-bottom: 1px solid #e8edf2 !important;
+  border-radius: 0 !important;
+  background: #f8fafc !important;
+  color: #334155;
+  box-sizing: border-box;
+}
+
+.panel-native-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+
+.panel-native-content::-webkit-scrollbar {
+  display: none;
+}
+
+.panel-native-content>* {
+  flex-shrink: 0;
+}
+
+.panel-native-content>div {
+  max-height: 31px;
+}
+
+.panel-native-content label {
+  white-space: nowrap;
+  font-size: 10px;
+}
+
+.panel-native-content span {
+  font-size: 11px;
+}
+
+.panel-native-content input[type="radio"],
+.panel-native-content input[type="checkbox"] {
+  accent-color: #2563a2;
+}
+
+.panel-native-content select,
+.panel-native-content button {
+  height: 25px;
+  padding: 2px 5px !important;
+  border: 1px solid #d8e0e8;
+  border-radius: 4px;
+  background: white;
+  font-size: 10px;
+}
+
+/* Componentes que originalmente empilhavam controles agora cabem em uma barra. */
+.panel-slot .trajectory-controls>.panel-native-content {
+  flex-direction: row;
+  align-items: center;
+}
+
+.panel-slot .trajectory-controls .panel-native-content>div {
+  flex-shrink: 0;
+  gap: 5px !important;
+}
+
+.panel-slot .tsne-controls .panel-native-content>div {
+  gap: 7px !important;
+}
+
+.panel-slot.is-collapsed>.panel-slot-toolbar {
+  display: flex !important;
+}
+
+.panel-slot.is-collapsed>.panel-slot-toolbar .panel-slot-title {
+  display: inline;
+}
+
+/* Colunas centrais recolhidas continuam verticais como antes. */
+.main-grid>.panel-slot.is-collapsed>.panel-slot-toolbar {
+  display: flex !important;
+}
+
+@media(max-width: 1100px) {
+  .panel-native-content {
+    gap: 5px;
+  }
+
+  .panel-slot-actions {
+    gap: 1px;
+    padding-left: 3px;
+  }
+
+  .panel-slot-actions button {
+    width: 22px;
+    flex-basis: 22px;
+  }
+}
+
+
+/* Compactação visual sem bloquear o gerenciamento de flex do panelLayout.js.
+   A base normal da matriz é atribuída pelo JavaScript, nunca com !important. */
+#confusion-matrix-panel {
+  min-height: 0;
+  overflow: hidden;
+}
+
+#confusion-matrix-panel>svg {
+  display: block;
+  max-width: 100%;
+}
+
+#cluster-panel .cluster-grid-wrapper {
+  align-content: flex-start;
+}
+
+/* ===== Patch: cabeçalhos permanentes, sem controles perdidos em redraw D3 ===== */
+.panel-slot>.panel-slot-toolbar,
+.panel-slot.has-native-header:not(.is-collapsed)>.panel-slot-toolbar {
+  display: flex !important;
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  flex: 0 0 34px !important;
+  padding: 0 5px 0 8px !important;
+  border: 0 !important;
+  border-bottom: 1px solid #e8edf2 !important;
+  background: #f8fafc !important;
+  z-index: 3;
+  box-sizing: border-box;
+}
+
+.panel-slot.is-collapsed>.panel-slot-toolbar {
+  height: 26px !important;
+  min-height: 26px !important;
+  flex-basis: 26px !important;
+}
+
+.main-grid>.panel-slot.is-collapsed>.panel-slot-toolbar {
+  height: 100% !important;
+  flex-basis: auto !important;
+  width: 100% !important;
+}
+
+.panel-slot-toolbar .panel-slot-title[hidden] {
+  display: none !important;
+}
+
+.panel-slot-toolbar>.panel-integrated-controls {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  width: auto !important;
+  height: 32px !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 3px !important;
+  border: 0 !important;
+  background: transparent !important;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.panel-integrated-controls::-webkit-scrollbar {
+  display: none;
+}
+
+.panel-slot-toolbar>.panel-integrated-controls> :not(.panel-native-content) {
+  flex-shrink: 0;
+}
+
+.panel-slot-toolbar>.panel-integrated-controls .panel-native-content {
+  overflow: visible;
+}
+
+.panel-slot-toolbar>.panel-slot-actions {
+  display: flex !important;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* Filtros em portal acima das 4 colunas, sem recorte pelo overflow dos painéis. */
+.builder-floating-root {
+  position: fixed;
+  inset: 0;
+  width: 0;
+  height: 0;
+  z-index: 100000;
+  pointer-events: none;
+}
+
+.builder-floating-root>.mb-panel,
+.builder-floating-root>.cb-panel {
+  pointer-events: auto;
+  z-index: 100001 !important;
+  box-sizing: border-box;
+}
+
+.builder-floating-root.motif-builder-dropdown .mb-panel {
+  position: fixed !important;
+}
+
+.builder-floating-root.context-builder-dropdown .cb-panel {
+  position: fixed !important;
+}
+
+/* Cartões de cluster: cabeçalho em linha única. */
+#cluster-panel .cluster-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 7px;
+  min-width: 0;
+  padding: 4px 7px;
+  min-height: 23px;
+  box-sizing: border-box;
+  border-radius: 3px 3px 0 0;
+}
+
+#cluster-panel .cluster-card-name {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 10px;
+  font-weight: 650;
+  text-align: left;
+}
+
+#cluster-panel .cluster-card-summary {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  font-size: 9px;
+  font-weight: 550;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.panel-slot.is-collapsed .panel-integrated-controls {
+  display: none !important;
+}
+
+/* === Ajuste de ergonomia: uma única ação por painel e legendas discretas === */
+.main-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(0, .8fr) minmax(0, 2.2fr) minmax(0, 1fr);
+}
+
+.panel-slot-actions {
+  align-self: center;
+  align-items: center;
+  padding: 0 2px;
+}
+
+.panel-slot-actions .panel-toggle {
+  width: 21px !important;
+  height: 20px !important;
+  flex: 0 0 21px !important;
+  padding: 0 !important;
+  line-height: 18px !important;
+  font-size: 15px !important;
+  border-radius: 4px;
+  border: 1px solid #dce4ed !important;
+  background: #fff !important;
+}
+
+.panel-slot-actions .panel-toggle:hover {
+  background: #edf4fb !important;
+}
+
+.panel-slot-toolbar {
+  cursor: default;
+}
+
+.panel-slot-toolbar .panel-integrated-controls {
+  cursor: default;
+}
+
+#cluster-panel {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable both-edges;
+}
+
+#cluster-panel .cluster-grid-wrapper {
+  width: 100%;
+  min-width: 0;
+  padding: 8px 0px !important;
+  box-sizing: border-box;
+}
+
+#cluster-panel .cluster-grid-wrapper>* {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Legenda sob demanda: o cabeçalho deixa de conter controles extensos de legenda. */
+.inplot-legend-trigger {
+  position: absolute;
+  z-index: 85;
+  top: 8px;
+  right: 8px;
+  padding: 3px 8px;
+  min-height: 23px;
+  border: 1px solid #d9e3ed;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, .94);
+  color: #40546b;
+  box-shadow: 0 1px 4px #12233912;
+  font: 500 10px Roboto, Arial, sans-serif;
+  cursor: pointer;
+}
+
+.inplot-legend-trigger:hover, .inplot-legend-trigger[aria-expanded="true"] {
+  background: #eaf2fa;
+}
+
+.inplot-legend-trigger:focus-visible {
+  outline: 2px solid #2774b5;
+  outline-offset: 2px;
+}
+
+#rug-panel .behavior-rug-right {
+  top: 40px;
+  right: 8px;
+  max-height: calc(100% - 50px);
+  overflow-y: auto;
+}
+
+#frequency-panel .frequency-legend-floating {
+  top: 40px;
+  right: 8px;
+  max-height: calc(100% - 50px);
+  overflow: auto;
+}
+
+.panel-slot.is-collapsed .inplot-legend-trigger {
+  display: none;
+}
+
+.frame-interval-button[aria-pressed="true"] {
+  background: #7152a4 !important;
+  color: white !important;
+}
+
+/* 2026-11: final layout refinements */
+#cluster-panel .cluster-grid-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  gap: 9px;
+}
+
+#cluster-panel .cluster-grid-wrapper>div {
+  width: clamp(166px, 95%, 220px);
+  flex: 0 0 auto;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+/* Toolbar actions must be smaller than the header, not stretch to its full height. */
+#rug-panel .rug-controls button,
+.panel-integrated-controls.rug-controls button,
+#rug-panel .rug-controls select,
+.panel-integrated-controls.rug-controls select {
+  height: 23px !important;
+  min-height: 23px !important;
+  max-height: 23px !important;
+  padding: 2px 5px !important;
+  line-height: 17px !important;
+  font-size: 10px !important;
+  align-self: center;
+  flex-shrink: 0;
+  border-radius: 4px;
+}
+
+#rug-panel .rug-controls, .panel-integrated-controls.rug-controls {
+  align-items: center !important;
+  min-height: 0;
+}
+
+.rug-system-legend {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 8;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  padding: 3px 8px;
+  background: #fff;
+  border-top: 1px solid #e4e9ef;
+  font: 9px/1.2 Roboto, Arial, sans-serif;
+  color: #455365;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+.rug-legend-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.rug-legend-group strong {
+  font-size: 9px;
+  color: #253447;
+  margin-right: 3px;
+}
+
+.legend-compass {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.legend-direction-figure {
+  color: #8895a3;
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.legend-speed {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.legend-speed i {
+  display: block;
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.legend-gradient {
+  display: block;
+  width: 52px;
+  height: 9px;
+  background: linear-gradient(90deg, #e5e5e5, #2a2a2a);
+  border-radius: 2px;
+}
+
+#context-panel-trigger {
+  display: none !important;
+}
+
+@media(max-width:1400px) {
+  .rug-system-legend {
+    justify-content: flex-start;
+    gap: 10px;
+    font-size: 8px;
+  }
+
+  #dataset-controls {
+    gap: 5px;
+  }
+
+  #dataset-controls .dataset-name {
+    max-width: 125px;
+  }
+
+  #dataset-controls input[type=number] {
+    width: 42px;
+    min-width: 40px;
+  }
+}
+
+
+/* ============================================================
+   UNIFIED COLLAPSED PANELS — 2026-11-01
+   A single + button above a vertical title. For stacked columns,
+   the vertical presentation applies only if ALL sibling panels
+   are collapsed. Otherwise the collapsed panel remains a short
+   horizontal header, preserving space for open siblings.
+   ============================================================ */
+
+/* Center columns (Clusters and Behaviour Rug): full-height vertical strip. */
+.main-grid>.panel-slot.is-collapsed>.panel-slot-toolbar {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 9px !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  flex: 1 1 auto !important;
+  padding: 8px 2px !important;
+  writing-mode: horizontal-tb !important;
+}
+
+/* Entire first or fourth column collapsed: keep panels stacked,
+   but let each one use one third of the available column height. */
+.left-column.column-hidden,
+.right-column.column-hidden {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  min-height: 0 !important;
+  gap: 5px;
+}
+
+.left-column.column-hidden>.panel-slot.is-collapsed,
+.right-column.column-hidden>.panel-slot.is-collapsed {
+  flex: 1 1 0px !important;
+  height: auto !important;
+  min-height: 0 !important;
+  min-width: 0 !important;
+}
+
+.left-column.column-hidden>.panel-slot.is-collapsed>.panel-slot-toolbar,
+.right-column.column-hidden>.panel-slot.is-collapsed>.panel-slot-toolbar {
+  position: relative !important;
+  inset: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 9px !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  flex: 1 1 auto !important;
+  padding: 8px 2px !important;
+  writing-mode: horizontal-tb !important;
+}
+
+/* Identical vertical typography on every full-height collapsed strip. */
+.main-grid>.panel-slot.is-collapsed .panel-slot-title,
+.left-column.column-hidden>.panel-slot.is-collapsed .panel-slot-title,
+.right-column.column-hidden>.panel-slot.is-collapsed .panel-slot-title {
+  display: block !important;
+  order: 1;
+  writing-mode: vertical-rl !important;
+  text-orientation: mixed !important;
+  white-space: nowrap !important;
+  max-height: calc(100% - 40px) !important;
+  min-height: 0 !important;
+  width: auto !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #334155;
+}
+
+.main-grid>.panel-slot.is-collapsed .panel-slot-actions,
+.left-column.column-hidden>.panel-slot.is-collapsed .panel-slot-actions,
+.right-column.column-hidden>.panel-slot.is-collapsed .panel-slot-actions {
+  display: flex !important;
+  order: 0;
+  flex: 0 0 auto;
+  flex-direction: column !important;
+  align-items: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Individual side-panel collapse still uses its normal horizontal bar. */
+.left-column:not(.column-hidden)>.panel-slot.is-collapsed>.panel-slot-toolbar,
+.right-column:not(.column-hidden)>.panel-slot.is-collapsed>.panel-slot-toolbar {
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+/* State Frequency: collapsed state shows its title, never the empty-state placeholder. */
+.panel-slot[data-panel="frequency-panel"].is-collapsed>#frequency-panel,
+.panel-slot[data-panel="frequency-panel"].is-collapsed #frequency-panel .panel-placeholder {
+  display: none !important;
+}
+
+.panel-slot[data-panel="frequency-panel"].is-collapsed .panel-slot-title {
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* ============================================================
+   TRAJECTORY DROPDOWNS AND LOWER PLAYBACK — 2026-11-02
+   Controls stay in their native integrated header; playback
+   stays below the Selected Trajectory SVG, like the video.
+   ============================================================ */
+.trajectory-controls .trajectory-mode-select,
+.trajectory-controls .trajectory-scale-select,
+.panel-integrated-controls.trajectory-controls .trajectory-mode-select,
+.panel-integrated-controls.trajectory-controls .trajectory-scale-select {
+  height: 25px;
+  min-height: 25px;
+  max-width: 80px;
+  min-width: 68px;
+  padding: 2px 2px;
+  border: 1px solid #d8e0e8;
+  border-radius: 4px;
+  background: #fff;
+  color: #334155;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+#trajectory-panel .trajectory-view-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100% !important;
+  margin-bottom: 0 !important;
+}
+
+#trajectory-panel .trajectory-view-wrapper>svg {
+  display: block;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+}
+
+#trajectory-panel .trajectory-playback-controls {
+  display: flex;
+  flex: 0 0 auto;
+  width: 100%;
+  min-height: 30px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 3px 10px;
+  background: #ccc;
+  border-top: 1px solid #bbb;
+}
+
+/* Aproximar os dropdowns dos seus labels */
+.trajectory-controls label {
+  margin-right: 2px !important;
+}
+
+/* Reduzir espaço entre os controles */
+.trajectory-controls {
+  column-gap: 4px !important;
+  gap: 4px !important;
+}
+
+/* Percentile configuration — header button and floating editor only. */
+.percentile-floating-root {
+  position: fixed;
+  inset: 0;
+  width: 0;
+  height: 0;
+  z-index: 100010;
+  pointer-events: none;
+}
+
+.percentile-settings-panel {
+  pointer-events: auto;
+  position: fixed;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 12px;
+  background: #fff;
+  color: #253447;
+  border: 1px solid #b7c5d5;
+  border-radius: 7px;
+  box-shadow: 0 9px 30px rgba(22, 44, 70, .25);
+  font: 12px Arial, sans-serif;
+  z-index: 100011;
+}
+
+.percentile-settings-panel[hidden] {
+  display: none !important;
+}
+
+.percentile-panel-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.percentile-help {
+  margin: 9px 0 12px;
+  color: #526478;
+  line-height: 1.45;
+}
+
+.percentile-group-title {
+  font-size: 11px;
+  font-weight: 700;
+  margin: 9px 0 6px;
+}
+
+.percentile-field-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.percentile-label-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.percentile-settings-panel label {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  font-size: 11px;
+  min-width: 0;
+}
+
+.percentile-settings-panel input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: 28px;
+  padding: 4px 6px;
+  border: 1px solid #bbc5d1;
+  border-radius: 4px;
+  background: #fff;
+  color: #253447;
+  font: 12px Arial, sans-serif;
+}
+
+.percentile-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.percentile-settings-panel button {
+  background: #164773;
+  color: white;
+  border: 0;
+  border-radius: 4px;
+  padding: 6px 9px;
+  cursor: pointer;
+  font: 12px Arial, sans-serif;
+}
+
+.percentile-settings-panel button:disabled {
+  opacity: .5;
+  cursor: wait;
+}
+
+.percentile-settings-panel .percentile-panel-close {
+  padding: 0 5px;
+  background: transparent;
+  color: #526478;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.percentile-settings-panel .percentile-actions button:first-child {
+  background: #e7edf4;
+  color: #253447;
+}
+
+.percentile-error {
+  color: #ab2525;
+  font-size: 11px;
+  margin-top: 7px;
+  line-height: 1.3;
+}
+
+#percentile-settings-toggle {
+  white-space: nowrap;
+  background: #164773 !important;
+  background-color: #164773 !important;
+  color: #ffffff !important;
+  border: 1px solid #164773 !important;
+}
+
+#percentile-settings-toggle:hover {
+  background: #0d3558 !important;
+  background-color: #0d3558 !important;
+  border-color: #0d3558 !important;
+}
+
+/* Percentile editor: corresponding cutoff and speed label on the same row. */
+.percentile-paired-grid {
+  display: grid;
+  grid-template-columns: minmax(110px, .9fr) minmax(0, 1.5fr);
+  gap: 7px 12px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.percentile-column-heading {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.percentile-settings-panel .percentile-cutoff-cell {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+}
+
+.percentile-settings-panel .percentile-cutoff-cell>span {
+  min-width: 20px;
+}
+
+.percentile-settings-panel .percentile-cutoff-cell>input {
+  flex: 1 1 auto;
+  width: 0;
+}
+
+.percentile-settings-panel .percentile-last-bin {
+  color: #526478;
+  font-size: 11px;
+}
+
+.percentile-settings-panel .percentile-label-cell {
+  display: block;
+}
+
+/* Percentile / Speed Value selector; existing paired columns remain unchanged. */
+.percentile-mode-choice {
+  display: flex;
+  gap: 18px;
+  margin: 8px 0;
+  align-items: center;
+}
+
+.percentile-settings-panel .percentile-mode-choice label {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.percentile-settings-panel .percentile-mode-choice input[type="radio"] {
+  width: auto;
+  min-width: 0;
+  height: auto;
+  margin: 0;
+  accent-color: #164773;
+}
+
+.percentile-settings-panel .percentile-cutoff-cell>input[hidden] {
+  display: none !important;
+}
+
+/* ===========================================================
+   Collapsible processing settings — compact header + overlay
+   Does not change grid sizing, panel heights or existing IDs.
+   =========================================================== */
+#dataset-controls {
+  position: relative;
+  overflow: visible;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  min-height: 36px;
+  height: 36px;
+  padding: 3px 8px;
+  gap: 8px;
+  z-index: 10000;
+}
+
+#dataset-controls #dataset-menu-toggle {
+  flex: 0 0 27px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 27px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid #c7d2de;
+  border-radius: 4px;
+  color: #164773;
+  background: #ffffff;
+  font-size: 19px;
+  line-height: 1;
+  cursor: pointer;
+}
+#dataset-controls #dataset-menu-toggle:hover,
+#dataset-controls #dataset-menu-toggle[aria-expanded="true"] {
+  background: #e7f0f8;
+}
+#dataset-controls #dataset-menu-toggle:focus-visible {
+  outline: 2px solid #164773;
+  outline-offset: 2px;
+}
+#dataset-controls .app-brand { margin-right: 0; }
+
+#dataset-controls .dataset-settings-popover {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  box-sizing: border-box;
+  width: min(440px, calc(100vw - 16px));
+  max-height: calc(100dvh - 65px);
+  overflow-y: auto;
+  padding: 13px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 11px;
+  background: #f8fafc;
+  border: 1px solid #b9c6d5;
+  border-radius: 7px;
+  box-shadow: 0 8px 24px rgba(20, 43, 66, .21);
+  color: #253447;
+  z-index: 10001;
+}
+#dataset-controls .dataset-settings-popover[hidden] { display: none !important; }
+#dataset-controls .dataset-settings-heading {
+  font-size: 13px;
+  font-weight: 700;
+}
+#dataset-controls .dataset-settings-popover .dataset-name {
+  display: block;
+  max-width: 100%;
+  font-size: 11px;
+}
+#dataset-controls .dataset-settings-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 70px;
+  gap: 9px 12px;
+  align-items: center;
+}
+#dataset-controls .dataset-settings-fields label { font-size: 12px; }
+#dataset-controls .dataset-settings-fields input[type="number"] {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: 28px;
+}
+#dataset-controls .dataset-settings-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+#dataset-controls .dataset-settings-footer #dataset-status {
+  flex: 1 1 150px;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+#dataset-controls .dataset-settings-popover #percentile-settings-toggle {
+  align-self: flex-start;
+  max-width: 100%;
+  white-space: normal;
+}
+
+
+/* Inline Speed classification section inside the processing menu.
+   Keeps the existing processing header height and all panel dimensions. */
+#dataset-controls .speed-classification {
+  width: 100%;
+  min-width: 0;
+  border-top: 1px solid #dbe3eb;
+  border-bottom: 1px solid #dbe3eb;
+}
+#dataset-controls .speed-classification-toggle {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 2px;
+  width: 100%;
+  min-height: 45px;
+  text-align: left;
+  border: none;
+  background: transparent;
+  color: #253447;
+  cursor: pointer;
+}
+#dataset-controls .speed-classification-toggle:hover,
+#dataset-controls .speed-classification-toggle[aria-expanded="true"] {
+  background: #edf3f8;
+}
+#dataset-controls .speed-classification-toggle:focus-visible {
+  outline: 2px solid #164773;
+  outline-offset: -2px;
+}
+#dataset-controls .speed-classification-toggle-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+#dataset-controls .speed-classification-toggle-copy strong {font-size: 12px;}
+#dataset-controls .speed-classification-toggle-copy small {
+  font-size: 11px;
+  color: #63778c;
+  overflow-wrap: anywhere;
+}
+#dataset-controls .speed-classification-chevron {font-size: 18px; color: #63778c;}
+#dataset-controls .speed-classification-content {
+  box-sizing: border-box;
+  padding: 4px 2px 12px;
+  min-width: 0;
+  max-height: min(54dvh, 450px);
+  overflow-y: auto;
+}
+#dataset-controls .speed-classification-content[hidden] {display: none !important;}
+#dataset-controls .speed-classification-help {
+  margin: 3px 0 10px;
+  font: 11px/1.45 Arial, sans-serif;
+  color: #526478;
+}
+#dataset-controls .speed-classification-modes {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 11px;
+}
+#dataset-controls .speed-classification-modes label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  white-space: nowrap;
+  font-size: 11px;
+}
+#dataset-controls .speed-classification-modes input[type="radio"] {
+  margin: 0;
+  width: auto;
+  height: auto;
+  accent-color: #164773;
+}
+#dataset-controls .speed-classification-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 7px 10px;
+  align-items: center;
+}
+#dataset-controls .speed-classification-grid > strong {
+  font-size: 11px;
+  color: #253447;
+}
+#dataset-controls .speed-classification-cutoff {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+#dataset-controls .speed-classification-cutoff > span {
+  min-width: 14px;
+  color: #526478;
+  font-size: 11px;
+}
+#dataset-controls .speed-classification-grid input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: 27px;
+  padding: 4px 6px;
+  background: #fff;
+  color: #253447;
+  border: 1px solid #bbc5d1;
+  border-radius: 4px;
+  font: 11px Arial, sans-serif;
+}
+#dataset-controls .speed-classification-cutoff input { flex: 1 1 auto; width: 0; }
+#dataset-controls .speed-classification-cutoff input[hidden] {display:none !important;}
+#dataset-controls .speed-classification-last {
+  color: #63778c;
+  font-size: 11px;
+}
+#dataset-controls .speed-classification-error {
+  margin-top: 6px;
+  color: #ab2525;
+  line-height: 1.35;
+  font-size: 11px;
+}
+#dataset-controls .speed-classification-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 7px;
+  margin-top: 10px;
+}
+#dataset-controls .speed-classification-actions button {
+  padding: 5px 9px;
+  background: #164773;
+  color: #fff;
+  border: 1px solid #164773;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+}
+#dataset-controls .speed-classification-actions .speed-classification-reset {
+  background: #e7edf4;
+  border-color: #c7d2de;
+  color: #253447;
+}
+#dataset-controls .speed-classification-actions button:disabled {opacity:.5;cursor:wait;}
+
+/* Menu hambúrguer: apenas os três tracinhos */
+#dataset-menu-toggle {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 4px 6px !important;
+    color: #333;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+/* Sem fundo ao passar o mouse ou clicar */
+#dataset-menu-toggle:hover,
+#dataset-menu-toggle:active {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Foco visível para navegação por teclado */
+#dataset-menu-toggle:focus-visible {
+    outline: 2px solid #2774b5;
+    outline-offset: 2px;
+}

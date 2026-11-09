@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>BehaviourViews</title>
+
+    <!-- D3 -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    
+    <!-- PDF Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CGPEDJVEWG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CGPEDJVEWG');
+</script>
+
+<body>
+
+    <!-- Container principal -->
+    <div class="container rug-view-layout">
+
+        <!-- Grid geral -->
+        <div class="main-grid">
+
+            <!-- Coluna esquerda -->
+            <div class="left-column">
+                <div id="tsne-panel" class="panel"></div>
+                <div id="confusion-matrix-panel" class="panel"></div>
+                <div id="trajectory-all-panel" class="panel"></div>
+            </div>
+
+            <!-- Cluster panel -->
+            <div id="cluster-panel" class="panel scroll"></div>
+
+            <!-- Behavior Rug -->
+            <div id="rug-panel" class="panel rug-panel"></div>
+
+            <!-- Coluna direita -->
+            <div class="right-column">
+                <div id="video-panel" class="panel">
+                    <div class="panel-placeholder">
+                        <p>Select a trajectory</p>
+                    </div>
+                </div>
+
+                <div id="trajectory-panel" class="panel">
+                    <div class="panel-placeholder">
+                        <p>Select a trajectory</p>
+                    </div>
+                </div>
+
+                <div id="frequency-panel" class="panel scroll">
+                    <div class="panel-placeholder">
+                        <p>Select a trajectory</p>
+                    </div>
+                </div>
+
+                
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Main JS -->
+    <script type="module" src="main.js"></script>
+</body>
+</html>
