@@ -114,8 +114,12 @@ export function drawBehaviorRug(data, containerSelector, config = null) {
       distance,
       duration,
       shannon_entropy: d.shannon_entropy,
-      avg_dwell_time: d.avg_dwell_time
-      //high_speed_ratio: d.high_speed_ratio
+      avg_dwell_time: d.avg_dwell_time,
+      high_speed_ratio: d.high_speed_ratio,
+      average_speed: d.average_speed,
+      total_distance: d.total_distance,
+      frame_inicial: d.frame_inicial,
+      frame_final: d.frame_final
     };
   });
 

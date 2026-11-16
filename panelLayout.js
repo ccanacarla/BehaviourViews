@@ -144,6 +144,19 @@ export function initPanelLayout(onGeometryChanged = () => { }) {
     collapse.setAttribute('aria-label', `Collapse ${title}`);
     collapse.addEventListener('click', () => updateSingleColumn(id, 'collapse'));
     actions.append(collapse);
+    if (id === 'rug-panel') {
+      const reset = document.createElement('button');
+      reset.type = 'button';
+      reset.className = 'reset-filters-button';
+      reset.textContent = 'Reset filters';
+      reset.title = 'Clear all active filters and selections';
+      reset.setAttribute('aria-label', 'Reset filters');
+      reset.addEventListener('click', () => {
+        // Central reset event keeps all views and their internal selections in sync.
+        window.dispatchEvent(new CustomEvent('behaviourrug:reset-filters'));
+      });
+      actions.prepend(reset);
+    }
     toolbar.addEventListener('dblclick', event => {
       if (event.target.closest('button, input, select, label, a')) return;
       updateSingleColumn(id, 'expand');

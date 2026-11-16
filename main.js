@@ -149,7 +149,7 @@ eventManager.subscribe('RESET_FILTERS', () => {
     filterState.contextSegments = null;
     filterState.contextSegmentColors = null;
     selectedTrajectory = null;
-    if (videoPanel) videoPanel.update(null);
+    eventManager.notify('TRAJECTORY_SELECTED', { trajectory: null, options: {} });
     applyFilters();
 });
 
@@ -169,6 +169,11 @@ eventManager.subscribe('RUG_BRUSH_CHANGED', ({ trajectoryIds }) => {
         : currentFilteredData;
 
     drawclusterMatrices(dataForClusters, '#cluster-panel', filterState.clusterIds, fullData);
+});
+
+// The persistent panel toolbar is independent of D3 redraws.
+window.addEventListener('behaviourrug:reset-filters', () => {
+    eventManager.notify('RESET_FILTERS');
 });
 
 /* -------------------- FILTERS -------------------- */

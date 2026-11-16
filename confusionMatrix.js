@@ -116,6 +116,24 @@ export function drawConfusionMatrix(data, containerSelector, fullData = null, ac
         .style("font-size", "10px")
         .text("Cluster - Symbolic Movement");
 
+    // Cluster-card selection is a contextual cue, not a matrix-cell selection.
+    const activeRows = new Set((activeClusterIds || []).map(String));
+
+    // Small row marker indicates a cluster-card selection without outlining
+    // every matrix cell (which would look like a full row was selected).
+    svg.selectAll(".cluster-row-indicator")
+        .data(yLabels.filter(id => activeRows.has(String(id))))
+        .enter()
+        .append("rect")
+        .attr("class", "cluster-row-indicator")
+        .attr("x", -9)
+        .attr("y", id => y(id) + 2)
+        .attr("width", 3)
+        .attr("height", Math.max(2, y.bandwidth() - 4))
+        .attr("rx", 1.5)
+        .attr("fill", id => CLUSTER_COLORS[Math.abs(+id % CLUSTER_COLORS.length)])
+        .style("pointer-events", "none");
+
     // Cells
     const cells = svg.selectAll(".cell")
         .data(flatData)
@@ -132,21 +150,17 @@ export function drawConfusionMatrix(data, containerSelector, fullData = null, ac
         .style("cursor", d => d.count === 0 ? "default" : "pointer")
         .style("stroke", d => {
             const isSelected = selection.some(s => s.yVal === d.yVal && s.xVal === d.xVal);
-            if (isSelected || activeClusterIds && activeClusterIds.includes(String(d.yVal))) {
-                return CLUSTER_COLORS[Math.abs(+d.yVal % CLUSTER_COLORS.length)];
-            }
-            return "#ddd";
+            return isSelected
+                ? CLUSTER_COLORS[Math.abs(+d.yVal % CLUSTER_COLORS.length)]
+                : "#ddd";
         })
-        .style("stroke-width", d => {
-            const isSelected = selection.some(s => s.yVal === d.yVal && s.xVal === d.xVal);
-            if (isSelected) {
-                return 3;
-            }
-            if (activeClusterIds && activeClusterIds.includes(String(d.yVal))) {
-                return 3;
-            }
-            return 1;
-        })
+        .style("stroke-width", d =>
+            selection.some(s => s.yVal === d.yVal && s.xVal === d.xVal) ? 2.5 : 0.8
+        )
+        .style("stroke-dasharray", d =>
+            selection.some(s => s.yVal === d.yVal && s.xVal === d.xVal) ? "none" : null
+        )
+        .style("opacity", d => activeRows.size && !activeRows.has(String(d.yVal)) ? 0.82 : 1)
         .on("click", (event, d) => {
             if (d.count === 0) return;
 

@@ -1,4 +1,5 @@
 import { VISUALIZATION_CONFIG, SPEED_STRINGS, DIRECTION_STRINGS } from './config.js';
+import { parseTrajectoryData } from './dataUtils.js';
 
 export function frequencyGlyph(data, targetSelector = ".container") {
   const container = d3.select(targetSelector);
@@ -185,8 +186,9 @@ export function frequencyGlyph(data, targetSelector = ".container") {
     // --- Métricas (Ao lado do SVG) ---
     if (isSingle) {
       const formatMetric = (val) => {
-        const num = parseFloat(val);
-        return isNaN(num) ? "N/A" : num.toFixed(3);
+        if (val === null || val === undefined || val === "") return "N/A";
+        const num = Number(val);
+        return Number.isFinite(num) ? num.toFixed(8) : "N/A";
       };
 
       // Adicionamos ao layoutDiv em vez do plotDiv
@@ -198,10 +200,46 @@ export function frequencyGlyph(data, targetSelector = ".container") {
         .style("color", "#555")
         .style("min-width", "120px"); // Garante uma largura mínima para as métricas
 
+      const raw = d.raw ?? d;
+      const duration = Number(raw.frame_final ?? d.frame_final) - Number(raw.frame_inicial ?? d.frame_inicial);
+      // Prefer the full-resolution speed produced by the CSV pipeline.
+      // For older trajectory objects, reconstruct traveled distance from
+      // available trajectory coordinates when path_length is absent.
+      const storedDistance = d.total_distance ?? d.raw?.total_distance;
+      let totalDistance = storedDistance !== null && storedDistance !== undefined &&
+        storedDistance !== '' && Number.isFinite(Number(storedDistance))
+        ? Number(storedDistance) : null;
+      // Compatibility with previously processed datasets: recompute distance
+      // from available coordinates when the new field is not present.
+      if (totalDistance === null) {
+        const points = parseTrajectoryData(d.trajectory_xy ?? d.raw?.trajectory_xy);
+        if (points.length >= 2) {
+          totalDistance = 0;
+          for (let i = 1; i < points.length; i++) {
+            totalDistance += Math.hypot(
+              points[i][0] - points[i - 1][0],
+              points[i][1] - points[i - 1][1]
+            );
+          }
+        }
+      }
+      const storedSpeed = d.average_speed ?? d.raw?.average_speed;
+      let averageSpeed = storedSpeed !== null && storedSpeed !== undefined &&
+        storedSpeed !== '' && Number.isFinite(Number(storedSpeed))
+        ? Number(storedSpeed) : null;
+      if (averageSpeed === null && Number.isFinite(duration) && duration > 0 &&
+          totalDistance !== null) {
+        averageSpeed = totalDistance / duration;
+      }
+
       const metrics = [
-        { label: "Shannon Entropy", value: d.shannon_entropy, desc: "Measures the uncertainty or diversity of movement states." },
-        { label: "Avg Dwell Time", value: d.avg_dwell_time, desc: "The average number of consecutive time steps spent in the same state." },
-        { label: "High Speed Ratio", value: d.high_speed_ratio, desc: "The fraction of the total trajectory duration spent in high speed states." }
+        { label: "Average Speed", value: averageSpeed,
+          desc: "Total distance traveled divided by elapsed time (coordinate units per timestamp unit)." },
+        { label: "Total Distance", value: totalDistance,
+          desc: "Sum of distances between consecutive trajectory points (coordinate units)." },
+        { label: "Shannon Entropy", value: (d.shannon_entropy ?? raw.shannon_entropy), desc: "Measures the uncertainty or diversity of movement states." },
+        { label: "Avg Dwell Time", value: (d.avg_dwell_time ?? raw.avg_dwell_time), desc: "The average number of consecutive time steps spent in the same state." }
+        //{ label: "High Speed Ratio", value: (d.high_speed_ratio ?? raw.high_speed_ratio), desc: "The fraction of the total trajectory duration spent in high speed states." }
       ];
 
       metrics.forEach(m => {
@@ -209,7 +247,7 @@ export function frequencyGlyph(data, targetSelector = ".container") {
           .style("cursor", "help")
           .style("margin-bottom", "6px")
           .style("text-align", "left")
-          .html(`<strong>${m.label}:</strong><br>${formatMetric(m.value)}`)
+          .html(`<strong>${m.label}:</strong> ${formatMetric(m.value)}`)
           .on("mouseover", (event) => {
             const tooltip = d3.select("body").selectAll(".tooltip").data([0]).join("div").attr("class", "tooltip");
             tooltip.text(m.desc)

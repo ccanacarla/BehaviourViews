@@ -3113,3 +3113,26 @@ html, body {
     outline: 2px solid #2774b5;
     outline-offset: 2px;
 }
+
+/* Persistent, compact global filter reset in the BehaviourRug header. */
+.panel-slot-actions .reset-filters-button {
+  width: auto;
+  min-width: max-content;
+  flex: 0 0 auto;
+  padding: 3px 9px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+  color: #475569;
+  background: #fff;
+  cursor: pointer;
+}
+.panel-slot-actions .reset-filters-button:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.panel-slot.is-collapsed .reset-filters-button {
+  display: none;
+}
